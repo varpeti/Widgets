@@ -1,0 +1,33 @@
+#!/bin/bash
+
+##################A projekt paraméterei:################
+fordito="g++"
+projectfileok="szgep.cpp"
+parameterek="-std=c++14 -Lflugigraph -Iflugigraph -lgraphics -lSDL -lSDL_ttf -Iwidget"
+nev="szgep.run"
+futtatas=true
+########################################################
+
+
+
+######################Fordítás:#########################
+if [[ ! -d "bin" ]]; then
+	mkdir "bin"
+fi
+
+nev="bin/$nev"
+
+if [ -f $nev ]; then ## Biztonsági mentés
+    mv $nev $nev".bak";
+fi
+
+$fordito $projectfileok $parameterek "-o" $nev
+########################################################
+
+
+
+#######################Futtatás:########################
+if [[ "$futtatas" = true && -f $nev ]]; then
+	timeout 4s gnome-terminal -x $nev;
+fi
+########################################################
